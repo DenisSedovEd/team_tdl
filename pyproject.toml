@@ -8,3 +8,8 @@ dependencies = [
     "django>=5.2.4",
     "python-dotenv>=1.1.1",
 ]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+]
