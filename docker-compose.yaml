@@ -22,6 +22,8 @@ services:
     env_file:
       - .env
 
+#    command: gunicorn config.wsgi.application --bind 0.0.0.0:8000
+
     ports:
       - "8000:8000"
 
@@ -29,22 +31,22 @@ services:
       pg:
         condition: service_healthy
 
-#    volumes:
-#      - ./staticfiles:/app/staticfiles
+    volumes:
+      - ./staticfiles:/var/app/static
 #      - ./media:/var/app/media
 #
-#  nginx:
-#    image: nginx:1.25
-#    ports:
-#      - "80:80"
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
 #      - "443:443"
-#    volumes:
+    volumes:
 #      - /etc/letsencrypt:/etc/letsencrypt:ro
-#      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
 #      - ./media:/media:ro
-#      - ./staticfiles:/static:ro
-#    depends_on:
-#      - resume_app
+      - ./staticfiles:/staticfiles:ro
+    depends_on:
+      - tasks_app
 
 volumes:
   pgdata:
