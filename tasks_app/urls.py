@@ -1,7 +1,8 @@
-from django.urls import path
+from django.urls import path, include
 
-from tasks_app import views
+from .views.user import login_view, register_view
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("register/", register_view, name="register"),
+    path("login/", login_view, name="login"),
 ]
