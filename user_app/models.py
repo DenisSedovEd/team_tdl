@@ -43,12 +43,20 @@ class CustomUser(AbstractUser):
         null=False,
     )
     subordinate_to = models.ForeignKey(
-        'self',
+        "self",
         on_delete=models.SET_NULL,
-        related_name='subordinates',
+        related_name="subordinates",
         null=True,
         blank=True,
-        verbose_name='Manager'
+        verbose_name="Руководитель",
+    )
+    under_his_command = models.ForeignKey(
+        "self",
+        on_delete=models.SET_NULL,
+        related_name="under_his_commands",
+        null=True,
+        blank=True,
+        verbose_name="Подчиненные",
     )
 
     USERNAME_FIELD = "email"
@@ -58,14 +66,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-
-
-class Status(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    status = models.ForeignKey(
-        TaskStatus,
-        on_delete=models.CASCADE,
-        related_name="tasks",
-    )
