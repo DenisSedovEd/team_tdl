@@ -3,7 +3,7 @@ from typing import ClassVar, Tuple
 from django.utils import timezone
 
 from task_app.apps import TaskAppConfig
-from user_app.models import CustomUser
+from user_app.models import CustomUser, Company
 
 
 class TaskStatus(models.TextChoices):
@@ -53,4 +53,12 @@ class Task(models.Model):
         blank=True,
         verbose_name="Главная задача",
         related_name="parent_tasks",
+    )
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="tasks",
+        verbose_name="Компания",
     )
