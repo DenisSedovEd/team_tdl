@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG")
 
-AUTH_USER_MODEL = "tasks_app.User"
+AUTH_USER_MODEL = "user_app.CustomUser"
 
 ALLOWED_HOSTS = ["*"]
 
@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "tasks_app.apps.TasksAppConfig",
+    "user_app.apps.UserAppConfig",
+    "task_app.apps.TaskAppConfig",
 ]
 
 MIDDLEWARE = [

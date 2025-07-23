@@ -18,9 +18,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from tasks_app import urls as tasks_app_urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include(tasks_app_urls)),
 ]
