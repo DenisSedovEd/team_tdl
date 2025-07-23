@@ -25,6 +25,16 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
+class Company(models.Model):
+    name = models.CharField(
+        max_length=150,
+        blank=False,
+        null=False,
+        unique=True,
+        verbose_name="Название компании",
+    )
+
+
 class CustomUser(AbstractUser):
     username = models.CharField(
         max_length=150,
@@ -41,6 +51,15 @@ class CustomUser(AbstractUser):
         max_length=150,
         blank=False,
         null=False,
+        verbose_name="Должность",
+    )
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="employees",
+        verbose_name="Наименование компании",
     )
     subordinate_to = models.ForeignKey(
         "self",
@@ -49,14 +68,6 @@ class CustomUser(AbstractUser):
         null=True,
         blank=True,
         verbose_name="Руководитель",
-    )
-    under_his_command = models.ForeignKey(
-        "self",
-        on_delete=models.SET_NULL,
-        related_name="under_his_commands",
-        null=True,
-        blank=True,
-        verbose_name="Подчиненные",
     )
 
     USERNAME_FIELD = "email"
