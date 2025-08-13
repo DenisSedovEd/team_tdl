@@ -17,15 +17,7 @@
                     <a class="nav-link active" aria-current="page" href="{% url 'team' %}">Команда</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/about/">Кабинет</a>
-                </li>
-                <li class="nav-item">
-                    <form action="{% url 'logout' %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <button type="submit" class="nav-link btn btn-link active"
-                                style="background: none; border: none; cursor: pointer;">Выход
-                        </button>
-                    </form>
+                    <a class="nav-link active" aria-current="page" href="{% url 'account' %}">Кабинет</a>
                 </li>
             </ul>
         </div>
