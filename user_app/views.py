@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import FormView, RedirectView, ListView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -21,6 +22,11 @@ class CustomRegisterView(FormView):
         user = form.save()
         login(self.request, user)
         return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("index")
+        return super().dispatch(request, *args, **kwargs)
 
 
 class CustomLoginView(LoginView):
@@ -46,3 +52,9 @@ class CustomListView(ListView):
         queryset = super().get_queryset()
         user_company = self.request.user.company
         return queryset.filter(company=user_company)
+
+
+@login_required
+def profile_view(request):
+    user = request.user
+    return render(request, "user_app/profile.html", {"user": user})
