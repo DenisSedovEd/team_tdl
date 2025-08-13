@@ -17,11 +17,17 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from user_app.views import CustomRegisterView, CustomLoginView, CustomLogoutView
+from user_app.views import (
+    CustomRegisterView,
+    CustomLoginView,
+    CustomLogoutView,
+    CustomListView,
+)
 
 
 urlpatterns = [
-    path("register/", CustomRegisterView.as_view(), name="register"),
+    path("", CustomRegisterView.as_view(), name="register"),
     path("login/", CustomLoginView.as_view(), name="login"),
     path("logout/", CustomLogoutView.as_view(), name="logout"),
+    # path("team/", CustomListView.as_view(), name="team"),
 ]

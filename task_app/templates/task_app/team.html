@@ -1,0 +1,16 @@
+{% extends "task_app/base.html" %}
+
+{% block title %}Задачи{% endblock %}
+
+{% block content %}
+<h2>Team Members</h2>
+{% if company_users %}
+    <ul>
+    {% for user in team %}
+        <li>{{ user.email }} - {{ user.position }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No team members found or you are not assigned to a company.</p>
+{% endif %}
+{% endblock %}

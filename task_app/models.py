@@ -62,3 +62,9 @@ class Task(models.Model):
         related_name="tasks",
         verbose_name="Компания",
     )
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return f"Task {self.title}"

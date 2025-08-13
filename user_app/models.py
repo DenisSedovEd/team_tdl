@@ -34,6 +34,9 @@ class Company(models.Model):
         verbose_name="Название компании",
     )
 
+    def __str__(self):
+        return self.name
+
 
 class CustomUser(AbstractUser):
     username = models.CharField(
@@ -76,4 +79,4 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return f"{self.email} - {self.position}"

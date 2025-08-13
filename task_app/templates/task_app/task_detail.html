@@ -3,5 +3,12 @@
 {% block title %}Задач{% endblock %}
 
 {% block content %}
-Детали задачи
+    <li class="list-group-item">
+        <h1>{{ task.title }}</h1>
+        <p>{{ task.description }}</p>
+        <p>{{ task.user }}</p>
+        <p>{{ task.parent_task }}</p>
+        <p>{{ task.status }}</p>
+        <p>{{ task.created_at }}</p>
+    </li>
 {% endblock %}
