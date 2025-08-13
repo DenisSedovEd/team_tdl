@@ -22,12 +22,14 @@ from user_app.views import (
     CustomLoginView,
     CustomLogoutView,
     CustomListView,
+    profile_view,
 )
 
 
 urlpatterns = [
-    path("", CustomRegisterView.as_view(), name="register"),
+    path("register/", CustomRegisterView.as_view(), name="register"),
     path("login/", CustomLoginView.as_view(), name="login"),
     path("logout/", CustomLogoutView.as_view(), name="logout"),
+    path("account/", profile_view, name="account"),
     # path("team/", CustomListView.as_view(), name="team"),
 ]
