@@ -1,0 +1,82 @@
+body {
+    background-color: #f4f7fa; /* Мягкий светлый фон */
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+h1, h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+a, button, input[type="submit"] {
+    background-color: #007bff; /* Синий акцент */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+a:hover, button:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+input[type="text"], input[type="email"], input[type="password"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.task-list li {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-list li.completed {
+    text-decoration: line-through;
+    background-color: #e9ecef;
+    color: #888;
+}
+
+.errorlist {
+    color: #dc3545; /* Красный для ошибок формы */
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.messages {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
