@@ -11,7 +11,7 @@
     <a href="{% url 'task_list' %}?completed=1" class="btn btn-secondary">Просмотреть завершённые</a>
   {% endif %}
 </div>
-<h1>Список задач</h1>
+<h1>Список задач {% if user.company%}{{ user.company }}{% endif %}</h1>
 {% for task in task_list %}
 <li class="list-group-item">
     <a href="{% url 'task_detail' task.id %}"><h3>{{ task.title }}</h3></a>
