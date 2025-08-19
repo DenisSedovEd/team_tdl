@@ -3,10 +3,16 @@
 {% block title %}Список задач{% endblock %}
 
 {% block content %}
-<a href="{% url 'task_create' %}">Создать задачу</a>
+<div class="mb-3">
+  <a href="{% url 'task_create' %}" class="btn btn-primary">Создать задачу</a>
+  {% if request.GET.completed == '1' %}
+    <a href="{% url 'task_list' %}" class="btn btn-outline-secondary">Список активных задач</a>
+  {% else %}
+    <a href="{% url 'task_list' %}?completed=1" class="btn btn-secondary">Просмотреть завершённые</a>
+  {% endif %}
+</div>
 <h1>Список задач</h1>
 {% for task in task_list %}
-{% if task.status == 'IN_PROGRESS' or task.status == 'PENDING' %}
 <li class="list-group-item">
     <a href="{% url 'task_detail' task.id %}"><h3>{{ task.title }}</h3></a>
     {% if task.parent_task %}
@@ -25,6 +31,5 @@
     </form>
     <hr>
 </li>
-{% endif %}
 {% endfor %}
 {% endblock %}
