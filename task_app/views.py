@@ -33,9 +33,15 @@ class TaskListView(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         user_company = self.request.user.company
+        show_completed = self.request.GET.get("completed") == "1"
         if user_company:
             queryset = queryset.filter(company=user_company)
-
+        else:
+            queryset = queryset.filter(user=self.request.user)
+        if show_completed:
+            queryset = queryset.filter(status="COMPLETED")
+        else:
+            queryset = queryset.exclude(status="COMPLETED")
         return queryset.order_by("-created_at")
 
 
@@ -47,7 +53,19 @@ class TaskCreateView(CreateView):
 
     def form_valid(self, form):
         form.instance.company = self.request.user.company
+        if not form.cleaned_data.get("user"):
+            form.instance.user = self.request.user
         return super().form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["user"] = self.request.user
+        return initial
 
 
 class TaskUpdateView(UpdateView):
@@ -55,6 +73,11 @@ class TaskUpdateView(UpdateView):
     template_name = "task_app/task_update.html"
     form_class = TaskForm
     success_url = reverse_lazy("task_list")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
 
 def index(request):
