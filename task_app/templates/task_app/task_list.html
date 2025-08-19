@@ -3,7 +3,7 @@
 {% block title %}Список задач{% endblock %}
 
 {% block content %}
-<div class="mb-3">
+<div class="d-flex gap-2 mt-2">
     <a href="{% url 'task_create' %}" class="btn btn-primary">Создать задачу</a>
     {% if request.GET.completed == '1' %}
     <a href="{% url 'task_list' %}" class="btn btn-outline-secondary">Список активных задач</a>
