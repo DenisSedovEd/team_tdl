@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 
 from task_app.models import Task
@@ -34,10 +35,21 @@ class TaskForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
         super().__init__(*args, **kwargs)
-        self.fields["parent_task"].queryset = Task.objects.exclude(
-            status="COMPLETED"
-        ).order_by("-created_at")
+        queryset_tasks = Task.objects.exclude(status="COMPLETED").order_by(
+            "-created_at"
+        )
+        User = get_user_model()
+        if user:
+            self.fields["user"].initial = user
+            if user.company:
+                queryset_tasks = queryset_tasks.filter(company=user.company)
+                self.fields["user"].queryset = user.company.employees.all()
+            else:
+                queryset_tasks = queryset_tasks.filter(user=user)
+                self.fields["user"].queryset = User.objects.filter(pk=user.pk)
+        self.fields["parent_task"].queryset = queryset_tasks
 
         if self.instance and self.instance.pk:
             self.fields["parent_task"].queryset = self.fields[
