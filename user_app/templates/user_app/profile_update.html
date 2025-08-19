@@ -1,0 +1,14 @@
+{% extends "task_app/base.html" %}
+
+{% block title %}ЛК{% endblock %}
+
+
+{% block content %}
+<h2>Редактировать профиль</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+    <a href="{% url 'account' %}" class="btn btn-primary">Отменить изменения</a>
+{% endblock %}

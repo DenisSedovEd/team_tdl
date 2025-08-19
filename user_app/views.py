@@ -1,11 +1,16 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import FormView, RedirectView, ListView
+from django.views.generic import FormView, RedirectView, ListView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import login, get_user_model
 
-from user_app.forms import CustomUserCreationForm, CustomAuthenticationForm
+from user_app.forms import (
+    CustomUserCreationForm,
+    CustomAuthenticationForm,
+    ProfileUpdateForm,
+)
 from user_app.models import CustomUser
 
 
@@ -58,3 +63,13 @@ class CustomListView(ListView):
 def profile_view(request):
     user = request.user
     return render(request, "user_app/profile.html", {"user": user})
+
+
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    form_class = ProfileUpdateForm
+    template_name = "user_app/profile_update.html"
+    success_url = "/account/"  # поменяй на нужный
+
+    def get_object(self, queryset=None):
+        return self.request.user

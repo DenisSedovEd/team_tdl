@@ -6,7 +6,7 @@ from django.contrib.auth.forms import (
 )
 from django.contrib.auth import get_user_model
 
-from user_app.models import CustomUser
+from user_app.models import CustomUser, Company
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -25,12 +25,20 @@ class CustomUserCreationForm(UserCreationForm):
             attrs={"class": "form-control", "placeholder": "Введите пароль"}
         ),
     )
+
     password2 = forms.CharField(
         label="Подтверждение пароля",
         widget=forms.PasswordInput(
             attrs={"class": "form-control", "placeholder": "Подтвердите пароль"}
         ),
         strip=False,
+    )
+
+    company = forms.CharField(
+        label="Компания",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Название компании"}
+        ),
     )
 
     class Meta:
@@ -48,6 +56,10 @@ class CustomUserCreationForm(UserCreationForm):
         user = super().save(commit=False)
         user.email = self.cleaned_data["email"]
         user.set_password(self.cleaned_data["password1"])
+        company = self.cleaned_data.get("company")
+        if company:
+            company, created = Company.objects.get_or_create(name=company)
+            user.company = company
         if commit:
             user.save()
         return user
@@ -64,5 +76,18 @@ class CustomAuthenticationForm(AuthenticationForm):
 
     def clean_username(self):
         username = self.cleaned_data.get("username").lower()
-        ...
         return username
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    position = forms.CharField(required=False)
+    first_name = forms.CharField(required=False, label="Имя")
+    last_name = forms.CharField(required=False, label="Фамилия")
+
+    class Meta:
+        model = CustomUser
+        fields = ["first_name", "last_name", "position", "company"]
+
+        widgets = {
+            "company": forms.Select(attrs={"class": "form-select"}),
+        }

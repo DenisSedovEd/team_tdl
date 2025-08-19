@@ -23,6 +23,7 @@ from user_app.views import (
     CustomLogoutView,
     CustomListView,
     profile_view,
+    ProfileUpdateView,
 )
 
 
@@ -31,5 +32,6 @@ urlpatterns = [
     path("login/", CustomLoginView.as_view(), name="login"),
     path("logout/", CustomLogoutView.as_view(), name="logout"),
     path("account/", profile_view, name="account"),
+    path("profile/", ProfileUpdateView.as_view(), name="profile_update"),
     # path("team/", CustomListView.as_view(), name="team"),
 ]
