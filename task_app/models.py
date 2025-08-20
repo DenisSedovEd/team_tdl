@@ -62,6 +62,10 @@ class Task(models.Model):
         related_name="tasks",
         verbose_name="Компания",
     )
+    deadline = models.DateTimeField(
+        verbose_name="Крайний срок",
+        default=timezone.now,
+    )
 
     def __str__(self):
         return self.title

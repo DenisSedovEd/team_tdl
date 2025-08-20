@@ -26,8 +26,7 @@
     {% endif %}
     <p>{{ task.description }}</p>
     <small style="color: grey;">
-        Статус: {{ task.get_status_display }} | Дата создания: {{ task.created_at }} | Последнее обновление: {{
-        task.updated_at }}
+        Статус: {{ task.get_status_display }} | Дата создания: {{ task.created_at }} | Крайний срок: {{ task.deadline }}
     </small>
     <br>
     <div class="d-flex gap-2 mt-2">

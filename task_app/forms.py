@@ -8,10 +8,11 @@ from task_app.models import Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ["title", "description", "user", "parent_task"]
+        fields = ["title", "description", "deadline", "user", "parent_task"]
         labels = {
             "title": "Название",
             "description": "Описание",
+            "deadline": "Крайний срок",
             "user": "Исполнитель",
             "parent_task": "Главная задача",
             "company": "Компания",
@@ -28,6 +29,14 @@ class TaskForm(forms.ModelForm):
                     "class": "form-control",
                     "placeholder": "Введите название",
                 }
+            ),
+            "deadline": forms.DateInput(
+                attrs={
+                    "class": "form-control",
+                    "type": "date",
+                    "placeholder": "Крайний срок",
+                },
+                format="%Y-%m-%d",
             ),
             "user": forms.Select(attrs={"class": "form-select"}),
             "parent_task": forms.Select(attrs={"class": "form-select"}),
